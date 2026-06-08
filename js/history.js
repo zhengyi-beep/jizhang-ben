@@ -2,10 +2,29 @@ import { getAllSessions, deleteSession } from './storage.js';
 import { totalAmount } from './calculator.js';
 import { syncFromSessions } from './members.js';
 
+// 主题切换
+function getTheme() {
+  const saved = localStorage.getItem('jzb_theme');
+  if (saved === 'light' || saved === 'dark') return saved;
+  // 默认跟随系统
+  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+}
+
+function applyTheme(theme) {
+  document.documentElement.setAttribute('data-theme', theme);
+  localStorage.setItem('jzb_theme', theme);
+}
+
+// 页面初始化时应用主题
+applyTheme(getTheme());
+
 export async function renderHistory(container) {
   const sessions = await getAllSessions();
   // 从已有账单同步成员到全局记忆
   syncFromSessions(sessions);
+
+  const currentTheme = getTheme();
+  const themeIcon = currentTheme === 'dark' ? '☀️' : '🌙';
 
   let html = `
     <div class="header">
@@ -13,6 +32,7 @@ export async function renderHistory(container) {
         <h1>记账本</h1>
         <div class="header-subtitle">AA分账，轻松算清</div>
       </div>
+      <button class="btn-icon theme-toggle" onclick="toggleTheme()" title="切换亮暗模式">${themeIcon}</button>
     </div>
   `;
 
@@ -52,6 +72,14 @@ export async function renderHistory(container) {
   }
 
   container.innerHTML = html;
+
+  window.toggleTheme = () => {
+    const current = getTheme();
+    const next = current === 'dark' ? 'light' : 'dark';
+    applyTheme(next);
+    // 刷新 header 中的图标
+    renderHistory(container);
+  };
 
   window.deleteSessionConfirm = (id) => {
     if (confirm('确定删除这个账单吗？')) {

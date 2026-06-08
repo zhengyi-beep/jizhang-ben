@@ -19,6 +19,32 @@
   --radius-sm: 10px;
   --shadow: 0 0 0 1px rgba(255, 255, 255, 0.04), 0 2px 4px rgba(0, 0, 0, 0.3);
   --shadow-lg: 0 0 0 1px rgba(255, 255, 255, 0.06), 0 8px 32px rgba(0, 0, 0, 0.4);
+  --stats-gradient: linear-gradient(135deg, rgba(75, 123, 255, 0.2) 0%, rgba(108, 92, 231, 0.15) 50%, rgba(75, 123, 255, 0.05) 100%);
+  --stats-border: rgba(75, 123, 255, 0.2);
+  --stats-text: white;
+  --stats-sub: rgba(255, 255, 255, 0.5);
+  --stats-sub-text: rgba(255, 255, 255, 0.45);
+}
+
+/* ─── 亮色主题 ─── */
+
+[data-theme="light"] {
+  --bg: #f2f2f7;
+  --bg-elevated: #ffffff;
+  --card: #ffffff;
+  --card-hover: #f8f8fc;
+  --text: #1a1a2e;
+  --text-secondary: #6e6e84;
+  --text-muted: #9a9ab0;
+  --border: rgba(0, 0, 0, 0.06);
+  --border-focus: rgba(75, 123, 255, 0.5);
+  --shadow: 0 0 0 1px rgba(0, 0, 0, 0.04), 0 2px 8px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 0 0 1px rgba(0, 0, 0, 0.06), 0 8px 32px rgba(0, 0, 0, 0.1);
+  --stats-gradient: linear-gradient(135deg, rgba(75, 123, 255, 0.9) 0%, rgba(108, 92, 231, 0.85) 100%);
+  --stats-border: rgba(75, 123, 255, 0.3);
+  --stats-text: white;
+  --stats-sub: rgba(255, 255, 255, 0.8);
+  --stats-sub-text: rgba(255, 255, 255, 0.7);
 }
 
 * {
@@ -183,6 +209,12 @@ body {
 .btn-icon:hover {
   background: rgba(255, 255, 255, 0.08);
   color: var(--text);
+}
+
+.theme-toggle {
+  font-size: 20px;
+  padding: 6px 8px;
+  border-radius: 12px;
 }
 
 /* ─── Form ─── */
@@ -535,8 +567,8 @@ select.form-input {
 /* ─── Stats card ─── */
 
 .stats-card {
-  background: linear-gradient(135deg, rgba(75, 123, 255, 0.2) 0%, rgba(108, 92, 231, 0.15) 50%, rgba(75, 123, 255, 0.05) 100%);
-  border: 1px solid rgba(75, 123, 255, 0.2);
+  background: var(--stats-gradient);
+  border: 1px solid var(--stats-border);
   border-radius: 20px;
   padding: 24px;
   margin-bottom: 20px;
@@ -555,11 +587,15 @@ select.form-input {
   pointer-events: none;
 }
 
+[data-theme="light"] .stats-card::before {
+  background: radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.15) 0%, transparent 60%);
+}
+
 .stats-title {
   font-size: 12px;
   text-transform: uppercase;
   letter-spacing: 1px;
-  color: rgba(255, 255, 255, 0.5);
+  color: var(--stats-sub);
   margin-bottom: 8px;
   font-weight: 600;
 }
@@ -567,14 +603,14 @@ select.form-input {
 .stats-value {
   font-size: 34px;
   font-weight: 800;
-  color: white;
+  color: var(--stats-text);
   letter-spacing: -1px;
   font-variant-numeric: tabular-nums;
 }
 
 .stats-sub {
   font-size: 13px;
-  color: rgba(255, 255, 255, 0.45);
+  color: var(--stats-sub-text);
   margin-top: 6px;
 }
 
