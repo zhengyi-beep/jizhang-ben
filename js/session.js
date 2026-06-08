@@ -290,8 +290,8 @@ export async function renderSession(container, sessionId) {
 
   html += `
     <div class="action-bar" style="flex-wrap:wrap">
-      <button class="btn btn-secondary" onclick="showOCRModal('${sessionId}')" style="background:#f0e6ff;color:#8B5CF6">📸 截图识别</button>
-      <button class="btn btn-secondary" onclick="showBatchModal('${sessionId}')" style="background:#e8f2ff;color:#007AFF">📝 快速记账</button>
+      <button class="btn btn-secondary" onclick="showOCRModal('${sessionId}')">📸 截图识别</button>
+      <button class="btn btn-secondary" onclick="showBatchModal('${sessionId}')">📝 快速记账</button>
       <button class="btn btn-secondary" onclick="showExpenseModal('${sessionId}')">+ 单条添加</button>
     </div>
     <div class="action-bar">
